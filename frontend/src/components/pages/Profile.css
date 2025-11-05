@@ -1,0 +1,131 @@
+.modalProfile {
+  font-family: var(--font-family);
+  width: 280px; /* Increased width */
+  max-height: 500px; /* Adjusted max-height */
+  flex-shrink: 0;
+  position: fixed; /* Cambiado a fixed para centrar en la ventana */
+  top: 70px; /* Centrar verticalmente */
+  right: 10px; /* Centrar horizontalmente */
+  display: flex;
+  justify-content: flex-start; /* Align items to start for better layout */
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  gap: 0.8rem; /* Slightly reduced gap */
+  z-index: 999;
+  border: 1px solid var(--border); /* Thinner, more subtle border */
+  border-radius: 12px; /* Softer corners */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Softer, more modern shadow */
+  background-color: var(--text-tertiary);
+  animation: fadeInOpacity 0.3s ease-in-out;
+  text-align: center;
+  padding: 15px; /* Added internal padding */
+}
+
+.modalProfileTittle {
+  font-size: var(--font-lg); /* More prominent title */
+  font-weight: 600; /* Added font-weight for emphasis */
+  margin: 0 0 15px 0; /* Adjusted margin for better spacing */
+  color: var(--text-primary); /* Ensure good contrast */
+  text-align: center;
+}
+
+.photoContainer {
+  display: flex;
+  justify-content: center; /* Center the photo within its container */
+  width: 100%;
+  margin-bottom: 15px; /* Space below the photo */
+  position: relative; /* For positioning update button relative to this */
+}
+
+.photoProfile {
+  width: 100px; /* Consistent size */
+  height: 100px; /* Consistent size */
+  border-radius: 50%;
+  object-fit: cover; /* Ensure image covers the area */
+  border: 3px solid var(--secondary); /* Highlight with accent color */
+  box-shadow: 0px 2px 10px var(--shadows); /* Subtle shadow for photo */
+}
+
+.updatePhotoButton {
+  font-size: var(--font-sm); /* Smaller icon */
+  width: 35px; /* Smaller button */
+  height: 35px; /* Smaller button */
+  position: absolute;
+  top: 65%;
+  right: 35%;
+  transform: translateX(50%); /* Center horizontally with photo */
+  cursor: pointer;
+  border-radius: 35%; /* Circular button */
+  background-color: var(--btn); 
+  color: var(--text-primary);
+  border: none;
+  box-shadow: 0 2px 5px var(--shadows);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease; /* Smooth hover */
+}
+
+.updatePhotoButton:hover {
+  background-color: var(--primary); /* Darken on hover */
+  color: var(--text-tertiary);
+}
+
+.labelProfile {
+  display: block;
+  text-align: left;
+  width: 100%; /* Take full width */
+  padding: 5px 0; /* Vertical padding */
+  color: var(--text-primary);
+  font-size: var(--font-base);
+  border-bottom: 1px solid var(--border-input); /* Separator */
+}
+
+.labelProfile strong {
+  color: var(--secondary); /* Highlight labels */
+  margin-right: 5px;
+}
+
+.fileInput {
+  display: none;
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: space-around; /* Space out buttons */
+  width: 100%;
+  margin-top: 20px; /* Space above buttons */
+}
+
+.buttonUpdateData, .buttonLogout {
+  font-size: var(--font-base);
+  padding: 8px 15px; /* Comfortable padding */
+  border-radius: 8px; /* Softer corners */
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 5px var(--shadows);
+  transition: background-color 0.2s ease, transform 0.2s ease; /* Smooth effects */
+}
+
+.buttonUpdateData {
+  background-color: var(--btn);
+  color: var(--text-primary);
+}
+
+.buttonUpdateData:hover {
+  background-color: var(--primary);
+  color: var(--text-tertiary);
+  transform: translateY(-2px); /* Lift effect */
+}
+
+.buttonLogout {
+  background-color: var(--error); /* Error color for logout */
+  color: var(--text-tertiary); /* White text */
+}
+
+.buttonLogout:hover {
+  background-color: var(--primary);
+  transform: translateY(-2px);
+}

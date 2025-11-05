@@ -1,0 +1,360 @@
+/* ===== Card.css (merged & enhanced) =====
+   - Layout responsivo y botones.
+   - Modal unificado con compatibilidad de clases (kebab y camel).
+   - Añadidos: .cards-price, .btn-edit, scroll interno, video/galería.
+*/
+
+/* Grid de tarjetas */
+.container-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  align-items: stretch;
+  padding: var(--space-lg);
+}
+
+/* Tarjeta */
+.cards {
+  position: relative; /* para ubicar la estrella */
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+  border-radius: 0.5rem;
+  border: var(--bg-dark) 2px solid;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  width: 300px;
+  /* margin-top: 20px;  <-- si quieres “bajar” las cards, descomenta */
+}
+
+.cards:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 15px rgba(0,0,0,0.15);
+  border-color: var(--secondary);
+}
+
+/* Imagen */
+.img-cards {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  flex-shrink: 0;
+  object-position: center;
+}
+
+/* ⭐ Favoritos */
+.favorite {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  font-size: 1.5rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  z-index: 10;
+}
+.favorite.active { color: var(--secondary); }
+
+/* Contenido */
+.cards-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.cards-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--bg-dark);
+}
+
+.cards-description {
+  font-size: 1rem;
+  color: #555;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cards-price {
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+/* Título general */
+.title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+  font-size: var(--font-2xl);
+}
+
+/* 📱 Tablet (>=600px → 2 por fila) */
+@media (min-width: 600px) {
+  .cards {
+    flex: 1 1 calc(50% - 2rem);
+    max-width: calc(50% - 2rem);
+  }
+  .img-cards { height: 150px; object-position: center top; }
+}
+
+/* 💻 Desktop (>=900px → 3 por fila) */
+@media (min-width: 900px) {
+  .cards {
+    flex: 1 1 calc(33.333% - 2rem);
+    max-width: calc(33.333% - 2rem);
+  }
+  .img-cards { height: 180px; object-position: center; }
+}
+
+/* Botonera */
+.card-buttons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
+  margin-top: 1rem;
+}
+
+.btn {
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--font-sm);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary {
+  background-color: var(--background);
+  color: var(--text-primary);
+  border: var(--primary) 2px solid;
+}
+.btn-primary:hover {
+  background-color: var(--primary);
+  color: var(--text-tertiary);
+  transform: scale(1.05);
+}
+
+.btn-secondary {
+  background-color: var(--primary);
+  color: var(--text-tertiary);
+}
+.btn-secondary:hover {
+  background-color: var(--secondary);
+  color: var(--primary);
+  transform: scale(1.05);
+}
+
+/* Edición / guardar / borrar */
+.btn-edit {
+  background-color: var(--background);
+  color: #000;
+  border: 2px solid var(--primary);
+}
+.btn-edit:hover { background-color: var(--secondary); color: #fff; }
+
+.btn-save {
+  padding: 0.55rem 1rem;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.25s ease;
+  align-self: flex-end;
+}
+.btn-save:hover { background: var(--bg-dark); }
+
+.btn-delete {
+  background-color: var(--background);
+  color: var(--text-primary);
+  font-weight: bold;
+  border: 2px solid var(--primary);
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+.btn-delete:hover {
+  background-color: var(--secondary);
+  transform: scale(1.05);
+}
+
+/* ---------- Modal (compatibilidad de clases) ---------- */
+
+/* Overlay */
+.modal-overlay,
+.modalOverlay,
+.card-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Contenido */
+.modal-content,
+.modalContent,
+.card-modal-content {
+  background: #fff;
+  border-radius: 0.9rem;
+  max-width: clamp(360px, 90vw, 600px);
+  width: 100%;
+  padding: 1rem;
+  position: relative;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  animation: modalFade 0.22s ease-out;
+  max-height: 90vh;         /* scroll interno si se excede */
+  overflow-y: auto;
+}
+
+@keyframes modalFade {
+  from { opacity: 0; transform: translateY(-8px) scale(0.995); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+/* Cerrar */
+.modal-close,
+.card-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #fff;
+  background-color: var(--accent);
+  padding: 6px 10px;
+  border-radius: 20%;
+  transition: background 0.2s ease;
+}
+.modal-close:hover,
+.card-modal-close:hover { background-color: #c62828; }
+
+/* Imagen dentro de modal */
+.modal-img,
+.card-modal-img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+/* Contenido scrollable (si lo usas) */
+.scrollable-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Video en modal */
+.modal-video {
+  width: 100%;
+  max-height: 300px;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+/* Galería */
+.modal-gallery { display: flex; flex-direction: column; align-items: center; }
+.modal-gallery .modal-img {
+  width: 100%;
+  max-height: 280px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+.gallery-buttons {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+.gallery-buttons .btn { background: #007bff; color: #fff; }
+
+/* ---------- Formulario (modo edición) ---------- */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background: #fafafa;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.edit-form img {
+  max-width: 140px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  object-fit: cover;
+  margin: 0 auto 0.8rem auto;
+  display: block;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: 100%;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #444;
+  font-size: 0.85rem;
+}
+
+.edit-form input[type="text"],
+.edit-form input[type="number"],
+.edit-form textarea,
+.edit-form input[type="file"] {
+  padding: 0.5rem 0.65rem;
+  border: 1px solid #c9c9c9;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  background-color: #fff;
+}
+
+.edit-form input:focus,
+.edit-form textarea:focus {
+  border-color: #0077ff;
+  box-shadow: 0 0 4px rgba(0,119,255,0.25);
+}
+
+.edit-form textarea { resize: none; min-height: 70px; }
+
+/* Accesibilidad / reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .cards,
+  .btn,
+  .btn-save,
+  .btn-delete {
+    transition: none;
+  }
+  .cards:hover { transform: none; }
+  .modal-content,
+  .modalContent,
+  .card-modal-content { animation: none; }
+}

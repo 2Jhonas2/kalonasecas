@@ -1,0 +1,204 @@
+/**
+ * Estilos CSS para el componente Carousel.
+ * Define la apariencia y el comportamiento del carrusel de selección de categorías,
+ * incluyendo el fondo dinámico, las tarjetas de categorías y su interactividad.
+ */
+
+/* ===== Contenedor con fondo dinámico ===== */
+/* Estilos para el contenedor principal del carrusel (hero section). */
+.hero-wrapper {
+  background-image: url(../../../public/back.jpg);
+  position: relative;
+  width: 100%;
+  padding: var(--space-md);
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 3px solid var(--secondary);
+  border-radius: var(--radius);
+  isolation: isolate; /* Crea un nuevo contexto de apilamiento para z-index. */
+  font-family: var(--font-family);
+  background: var(--background);
+}
+
+/* Media query para aplicar una altura mínima en pantallas grandes. */
+@media (min-width: 1025px) {
+  .hero-wrapper { min-height: var(--hero-minh-desktop); }
+}
+
+/* Estilos para la imagen de fondo dinámica del carrusel. */
+.hero-bg {
+  position: absolute;
+  inset: 0; /* Cubre todo el contenedor padre. */
+  background-size: cover;     /* Asegura que la imagen cubra el área sin distorsionarse. */
+  background-position: center;
+  filter: saturate(1.05) contrast(1.02); /* Pequeños ajustes visuales a la imagen. */
+  animation: bgFade 0.5s ease-in; /* Animación de fade-in al cambiar la imagen. */
+  will-change: opacity, transform; /* Optimización para animaciones. */
+  z-index: -2; /* Envía el fondo detrás del contenido. */
+}
+
+/* Estilos para la capa de superposición sobre la imagen de fondo. */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient( /* Degradado para oscurecer la imagen y mejorar la legibilidad del texto. */
+    to bottom,
+    rgba(0,0,0,.25) 0%,
+    rgba(0,0,0,.15) 30%,
+    rgba(0,0,0,.35) 100%
+  );
+  pointer-events: none; /* Permite que los clics pasen a los elementos debajo. */
+  z-index: -1; /* Coloca la superposición entre el fondo y el contenido. */
+}
+
+/* Animación de fade-in para la imagen de fondo. */
+@keyframes bgFade {
+  from { opacity: .3; transform: scale(1.02); }
+  to   { opacity: 1;  transform: scale(1); }
+}
+
+/* ===== Fila de tarjetas ===== */
+/* Contenedor para las tarjetas de categoría. */
+.cards-row {
+  position: relative;
+  display: flex;
+  gap: var(--space-md); /* Espaciado entre las tarjetas. */
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  margin-inline: auto;
+  z-index: 1; /* Asegura que las tarjetas estén por encima del fondo. */
+}
+
+/* ===== Tarjetas (estados) ===== */
+/* Estilos base para cada tarjeta individual. */
+.card {
+  position: relative;
+  width: clamp(240px, 28vw, 360px);
+  height: clamp(180px, 22vw, 240px);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--primary);                 /* Color de fondo base oscuro. */
+  color: var(--text-tertiary);
+  box-shadow: var(--shadow);
+  border: 3px solid rgba(255,255,255,0.06);   /* Borde sutil para tarjetas no seleccionadas. */
+  transform: scale(0.95);
+  transition: transform .25s ease, box-shadow .25s ease, border .25s ease; /* Transiciones suaves para interactividad. */
+}
+
+/* Estilos para la imagen dentro de la tarjeta. */
+.card-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+  transition: transform .25s ease, border-radius .25s ease;
+}
+
+/* Estilos para la imagen de tarjetas NO seleccionadas (se encoge ligeramente para mostrar el marco). */
+.card:not(.selected) .card-img {
+  transform: scale(.99);                     
+  border-radius: calc(var(--radius) - 6px);  
+}
+
+/* Estilos al pasar el ratón sobre una tarjeta. */
+.card:hover { border-color: var(--secondary); }
+/* Estilos al enfocar una tarjeta (accesibilidad). */
+.card:focus-visible { box-shadow: var(--shadow-focus); }
+
+/* Estilos para la tarjeta seleccionada (sin marco, borde dorado, imagen a full). */
+.card.selected {
+  transform: scale(1);
+  border: 3px solid var(--secondary);
+  box-shadow: var(--shadow-focus);
+}
+/* Estilos para la imagen de la tarjeta seleccionada (ocupa toda la tarjeta). */
+.card.selected .card-img {
+  transform: scale(1.08);                        
+  border-radius: 0;                               
+}
+
+/* ===== Caption ===== */
+/* Estilos para el pie de foto/título de la tarjeta. */
+.card-caption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 2em;                               
+  text-align: center;
+  color: var(--text-tertiary);
+  font-weight: 800;
+  text-shadow: 0 2px 12px rgba(0,0,0,.9);
+  background: linear-gradient(to top, rgba(0,0,0,.65), rgba(0, 0, 0, 0)); /* Degradado oscuro en la parte inferior. */
+  transition: padding .25s ease, background .25s ease;
+}
+
+/* Estilos para el pie de foto de la tarjeta seleccionada (degradado dorado, menos padding). */
+.card.selected .card-caption {
+  padding: 0.8em;
+  background: linear-gradient(to top, var(--secondary), transparent);
+}
+
+/* Estilos para el título dentro del pie de foto. */
+.card-caption h3 { margin: 0; font-size: var(--font-base); }
+
+/* ===== Tablet ===== */
+/* Media query para pantallas de tablet. */
+@media (max-width: 1024px) {
+  .hero-wrapper {
+    max-height: var(--hero-maxh-tablet);  
+    margin-top: .5em;
+  }
+  .cards-row { gap: var(--space-sm); }
+  .card {
+    width: clamp(240px, 34vw, 360px);
+    height: auto;
+    aspect-ratio: 4/3;               
+    max-height: 420px;               
+  }
+  .card-caption { padding: 1.25em; }
+  .card.selected .card-caption { padding: 0.6em; }
+  .card:not(.selected) .card-img { transform: scale(0.995); }
+  .card.selected .card-img { transform: scale(1.12); } 
+}
+
+/* ===== Mobile ===== */
+/* Media query para pantallas móviles. */
+@media (max-width: 767px) {
+  .hero-wrapper {
+    max-height: var(--hero-maxh-mobile);
+    padding: var(--space-sm) var(--space-sm) 0;
+    scrollbar-width: none; /* Oculta la barra de desplazamiento. */
+  }
+
+  .cards-row {
+    max-width: none;
+    width: 100%;
+    justify-content: flex-start;
+    gap: var(--space-sm);
+    overflow-x: auto; /* Permite el desplazamiento horizontal. */
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory; /* Ajusta el scroll a las tarjetas. */
+    -webkit-overflow-scrolling: touch; /* Mejora el scroll en iOS. */
+    scrollbar-width: none;
+  }
+
+  .card {
+    flex: 0 0 var(--card-mobile-width);
+    width: var(--card-mobile-width);
+    height: auto;
+    aspect-ratio: var(--card-mobile-ratio);
+    max-height: var(--card-mobile-maxh);
+    scroll-snap-align: center; /* Centra la tarjeta al hacer scroll. */
+  }
+
+  .card.selected { transform: scale(1.02); }
+}
+
+/* Media query para usuarios que prefieren movimiento reducido (accesibilidad). */
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg { animation: none; }
+  .card { transition: none; }
+  .card-img { transition: none; }
+  .card-caption { transition: none; }
+}

@@ -1,0 +1,34 @@
+/**
+ * Estilos CSS para el componente Footer (pie de página).
+ * Define la apariencia y el posicionamiento del pie de página en la aplicación.
+ */
+
+/* Estilos para el contenedor principal del pie de página. */
+.footer-container {
+  width: 100%;
+  position: fixed; /* Fija el pie de página en la parte inferior de la ventana. */
+  bottom: 0;
+  left: 0;
+}
+
+/* Estilos para el contenido del pie de página. */
+.footer{
+  background-color: var(--primary); /* Color de fondo usando una variable CSS. */
+  color: var(--text-tertiary); /* Color del texto usando una variable CSS. */
+  text-align: center;
+  padding: 10px 0;
+  font-size: var(--font-lg); /* Tamaño de fuente usando una variable CSS. */
+}
+
+/* Media query para pantallas con un ancho máximo de 1020px (típicamente tablets y móviles). */
+@media (max-width: 1020px) {
+  /* Oculta el footer de escritorio en pantallas más pequeñas. */
+  .desktop-footer {
+    display: none;
+  }
+
+  /* Oculta el footer principal en pantallas más pequeñas, probablemente para usar un footer móvil diferente. */
+  .footer{
+    display: none;
+  }
+}

@@ -1,0 +1,23 @@
+.add-package-button {
+  position: fixed;
+  bottom: 30px; /* Adjust as needed */
+  right: 630px; /* Adjust as needed */
+  z-index: 100; /* Ensure it's above other content */
+}
+
+.add-package-button{
+  margin: 1rem auto;
+  display: block;
+  background-color: #090530; 
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.add-package-button:hover {
+  background-color:#daa520; 
+  transform: scale(1.05);
+}

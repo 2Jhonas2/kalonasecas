@@ -1,0 +1,75 @@
+/**
+ * Variables CSS globales (fusionadas)
+ * - Paleta, tipografías, espaciados y utilidades compartidas.
+ * - Incluye tokens usados por Login, Card, Header, TC, etc.
+ */
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Tokens globales */
+:root {
+  /* Paleta */
+  --primary: #090530;
+  --secondary: #daa520;
+  --accent: #ea4335;
+  --error: #ea5a5c;
+
+  --background: #f0f0f0;
+  --bg-dark: #292929ff;
+  --bg: #ddd; /* útil para fondos neutros */
+  --text-primary: #000000;
+  --text-secondary: #daa520;
+  --text-tertiary: #ffffff;
+  --text-light: #e0e0e0;
+
+  --border: #222222;
+  --border-input: #CBD2E0;
+  --hover: #717D96;
+  --btn: #E2E7F0;
+  --shadows: #999;
+  --placehol: #666;
+
+  --transparent: #fff5;
+  --transparent-black: rgba(0, 0, 0, 0.6); /* usado por TC modal */
+
+  /* Tipografía */
+  --font-family: 'Segoe UI';
+  --font-sm: clamp(0.875rem, 2vw, 1rem);
+  --font-base: clamp(1rem, 2.5vw, 1.125rem);
+  --font-lg: clamp(1.125rem, 3vw, 1.25rem);
+  --font-xl: clamp(1.25rem, 3.5vw, 1.5rem);
+  --font-2xl: clamp(1.5rem, 4vw, 2rem);
+
+  /* Espaciados */
+  --space-xs: clamp(0.25rem, 1vw, 0.5rem);
+  --space-sm: clamp(0.5rem, 2vw, 1rem);
+  --space-md: clamp(1rem, 3vw, 1.5rem);
+  --space-lg: clamp(1.5rem, 4vw, 2rem);
+  --space-xl: clamp(2rem, 5vw, 3rem);
+
+  /* Layout & efectos */
+  --radius: 12px;
+  --shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  --shadow-focus: 0 0 0 3px var(--secondary), var(--shadow);
+
+  /* Hero / carrusel */
+  --hero-mt: var(--space-lg);
+  --hero-minh-desktop: 320px;
+  --hero-maxh-tablet: 55svh;
+  --hero-maxh-mobile: 60svh;
+
+  /* Cards */
+  --card-mobile-width: 78%;
+  --card-mobile-ratio: 16/10;
+  --card-mobile-maxh: 320px;
+  --card-tablet-ratio: 16/9;
+  --card-tablet-maxh: 300px;
+
+  /* Branding */
+  --logo-car-gap: 8px;
+}

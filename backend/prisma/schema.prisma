@@ -1,0 +1,238 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+/* ===========================
+   Core Models
+   =========================== */
+
+model reservations {
+  id_resertion          Int                  @id @default(autoincrement())
+  id_reserve_state      Int
+  reserve_state         reserved_states      @relation(fields: [id_reserve_state], references: [id_reserve_state])
+  date_state            DateTime             @default(now())
+  reservation_date      DateTime
+  number_of_people      Int
+  id_user               Int
+  user                  users                @relation(fields: [id_user], references: [id_user])
+  id_package_touristic  Int
+  package_touristic     packages_touristics  @relation(fields: [id_package_touristic], references: [id_package_touristic])
+  payment               payments[]
+}
+
+model activities {
+  id_activity           Int                   @id @default(autoincrement())
+  name_activity         String
+  description_activity  String
+  // Se mantiene ortografía para no romper referencias actuales
+  package_avtivity      packages_activities[]
+}
+
+model packages_activities {
+  id_package_activity   Int          @id @default(autoincrement())
+  id_ativity            Int
+  activity              activities   @relation(fields: [id_ativity], references: [id_activity])
+}
+
+model climates {
+  id_climate            Int                     @id @default(autoincrement())
+  code                  String                  @unique        // "THEMATIC" | "TEMPERATE" | "WARM"
+  name                  String                                  // “Lugares Temáticos”, “Templado”, “Cálido”
+  description           String?
+  is_active             Boolean                 @default(true)
+  places                places_recreationals[]
+  // para navegar paquetes por clima
+  packages_touristics   packages_touristics[]
+}
+
+model places_recreationals {
+  id_place_recreational Int                   @id @default(autoincrement())
+  direction             String?               @map("geographical_location")
+  email_place_recreational String?            @unique
+  place_name            String
+  id_department         Int
+  id_city               Int
+  department            departments           @relation(fields: [id_department], references: [id_department])
+  city                  cities                @relation(fields: [id_city], references: [id_city])
+  id_climate            Int?
+  climate               climates?             @relation(fields: [id_climate], references: [id_climate])
+  image_url             String?               @db.Text
+  short_description     String?
+  keywords              String?
+  search_name           String?
+  rating_avg            Float?                @default(0)
+  review_count          Int?                  @default(0)
+  is_active             Boolean               @default(true)
+  price_from            Int?
+  latitude              Float?
+  longitude             Float?
+  id_user               Int?
+  user                  users?                @relation(fields: [id_user], references: [id_user])
+  package_touristic     packages_touristics[]
+  categories            place_categories[]
+
+  // relación con favoritos (opcional, pero útil)
+  favorites             favorites[]
+
+  @@index([id_department, id_city, id_climate])
+  @@index([price_from])
+  @@index([search_name])
+  @@index([is_active])
+}
+
+model packages_touristics {
+  id_package_touristic          Int                   @id @default(autoincrement())
+  name_package_touristic        String
+  description_package_touristic String
+  days_durations                DateTime
+  price_package_touristic       Int
+  id_place_recreational         Int
+  place_recreational            places_recreationals  @relation(fields: [id_place_recreational], references: [id_place_recreational])
+
+  // para filtrar/etiquetar paquetes por clima
+  id_climate                    Int
+  climate                       climates              @relation(fields: [id_climate], references: [id_climate])
+
+  reservations                  reservations[]
+}
+
+model payments {
+  id_payment     Int          @id @default(autoincrement())
+  amount         Int
+  method         String
+  payment_date   DateTime     @default(now())
+  id_reservation Int
+  reservation    reservations @relation(fields: [id_reservation], references: [id_resertion])
+}
+
+model types_documents {
+  id_type_document Int     @id @default(autoincrement())
+  document_name    String  @unique
+  user             users[]
+}
+
+model users {
+  id_user             Int             @id @default(autoincrement())
+  name_user           String
+  lastname_user       String?
+  number_document     Int             @unique
+  id_type_document    Int
+  // Se mantiene el nombre para no romper imports actuales
+  type_ducument       types_documents @relation(fields: [id_type_document], references: [id_type_document])
+  date_birth          DateTime?
+  direction_user      String?
+  email_user          String          @unique
+  password            String
+  id_role_user        Int
+  role_user           roles_users     @relation(fields: [id_role_user], references: [id_role_user])
+  admin_place         admins_places[]
+  reservations        reservations[]
+  place_recreational  places_recreationals[]
+  logistic_agent      logistics_agents[]
+
+  // Cuenta
+  isVerified           Boolean  @default(false)
+  passwordResetToken   String?  @db.VarChar(64)
+  passwordResetExpires DateTime?
+
+  // Avatar / foto
+  photo_user           String?
+
+  // relación con favoritos (opcional, pero útil)
+  favorites            favorites[]
+}
+
+model roles_users {
+  id_role_user Int     @id @default(autoincrement())
+  description  String  @unique
+  user         users[]
+}
+
+model admins_places {
+  id_admin_place Int   @id @default(autoincrement())
+  id_user        Int
+  user           users @relation(fields: [id_user], references: [id_user])
+}
+
+model logistics_agents {
+  id_logistic_agent Int @id @default(autoincrement())
+  id_user           Int
+  user              users @relation(fields: [id_user], references: [id_user])
+}
+
+model reserved_states {
+  id_reserve_state Int            @id @default(autoincrement())
+  state_name       String
+  reservations     reservations[]
+}
+
+model departments {
+  id_department         Int                    @id @default(autoincrement())
+  name                  String                 @unique  // "Cundinamarca"
+  code                  String?                // "CUN"
+  cities                cities[]
+  places_recreationals  places_recreationals[]
+}
+
+model cities {
+  id_city        Int           @id @default(autoincrement())
+  name           String
+  id_department  Int
+  department     departments   @relation(fields: [id_department], references: [id_department])
+  places         places_recreationals[]
+
+  @@unique([name, id_department])
+}
+
+model categories {
+  id_category Int     @id @default(autoincrement())
+  code        String  @unique     // "SCHOOL_FURNITURE"
+  name        String              // "Muebles escolares"
+  places      place_categories[]
+}
+
+model place_categories {
+  id_place_category     Int                  @id @default(autoincrement())
+  id_place_recreational Int
+  id_category           Int
+  place                 places_recreationals @relation(fields: [id_place_recreational], references: [id_place_recreational])
+  category              categories           @relation(fields: [id_category], references: [id_category])
+
+  @@unique([id_place_recreational, id_category])
+}
+
+model News {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String   @db.Text
+  type        String   // e.g., NEW_PACKAGE, NEW_PLACE
+  entityId    String?  // ID of the related entity (package, place, etc.)
+  imageUrl    String?  @db.Text
+  createdAt   DateTime @default(now())
+  expiresAt   DateTime
+
+  @@index([expiresAt])
+  @@index([createdAt])
+}
+
+/* ===========================
+   Favorites (nuevo)
+   =========================== */
+
+model favorites {
+  id_favorite            Int                  @id @default(autoincrement())
+  id_user                Int
+  id_place_recreational  Int
+
+  user   users                 @relation(fields: [id_user], references: [id_user])
+  place  places_recreationals  @relation(fields: [id_place_recreational], references: [id_place_recreational])
+
+  // Un favorito por usuario y lugar
+  @@unique([id_user, id_place_recreational], name: "id_user_id_place_recreational")
+}

@@ -1,0 +1,175 @@
+/**
+ * Estilos CSS para el componente NavBar (Barra de Navegación).
+ * Define la apariencia y el comportamiento de la barra de navegación,
+ * adaptándose a diferentes tamaños de pantalla (desktop y móvil).
+ */
+
+/* =============================
+   NAVBAR SUPERIOR (Desktop/Laptop)
+============================= */
+/* Contenedor principal de la barra de navegación de escritorio. */
+.container {
+  max-width: 900px; /* Ancho máximo del contenedor. */
+  margin: 0 auto; /* Centra el contenedor horizontalmente. */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centra el contenido de los enlaces. */
+  padding: var(--space-sm) var(--space-md);
+  background-color: transparent;
+  color: var(--text-tertiary);
+  width: 100%;
+}
+
+/* Estilos para el elemento `nav` dentro del contenedor. */
+.navbar {
+  width: 100%;
+}
+
+/* Estilos para la lista de enlaces de navegación. */
+.nav-links {
+  display: flex;
+  gap: var(--space-lg); /* Espaciado entre los enlaces. */
+  justify-content: center;
+}
+
+/* Estilos para los enlaces individuales de navegación. */
+.nav-link a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: var(--font-lg);
+  transition: color 0.3s, border-bottom 0.3s;
+  cursor: pointer;
+  padding-bottom: 5px;
+  border-bottom: 3px solid transparent; /* Borde inferior transparente por defecto. */
+}
+
+/* Estilos al pasar el ratón sobre un enlace de navegación. */
+.nav-link a:hover {
+  color: var(--text-secondary);
+  border-bottom: 3px solid var(--text-secondary); /* Resalta el borde inferior. */
+}
+
+/* Estilos para el enlace de navegación activo. */
+.nav-link a.active {
+  color: var(--text-secondary);
+  border-bottom: 3px solid var(--text-secondary);
+}
+
+
+/* =============================
+   NAVBAR INFERIOR (Móvil/Tablet)
+============================= */
+/* Oculta la barra de navegación móvil por defecto en desktop. */
+.mobile-navbar {
+  display: none;
+}
+
+/* Estilos para la barra de navegación inferior en móvil. */
+.bottom-nav {
+  background-color: var(--primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-width: 300px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  pointer-events: auto;
+}
+
+/* Estilos para los iconos de navegación en móvil. */
+.nav-icon {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+/* Estilos para el icono de navegación activo en móvil. */
+.nav-icon.active {
+  color: var(--text-secondary);
+}
+
+/* Estilos para el botón de acción flotante (FAB) central en móvil. */
+.fab-button {
+  position: absolute;
+  top: -25px; /* Posiciona el botón por encima de la barra. */
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: var(--text-tertiarypr);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  border: none;
+  z-index: 1000;
+}
+
+/* =============================
+   TRANSICIONES SUAVES
+============================= */
+/* Estilos para transiciones de opacidad y escala en las barras de navegación. */
+.desktop-navbar,
+.mobile-navbar {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Estilos para ocultar las barras de navegación con una transición. */
+.desktop-navbar.hidden,
+.mobile-navbar.hidden {
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none; /* Deshabilita interacciones cuando está oculto. */
+}
+
+/* =============================
+   MEDIA QUERIES
+============================= */
+
+/* Media query para pantallas pequeñas (móvil/tablet) */
+@media (max-width: 1020px) {
+  /* Oculta la barra de navegación de escritorio. */
+  .desktop-navbar {
+    display: none;
+  }
+
+  /* Muestra y posiciona la barra de navegación móvil. */
+  .mobile-navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    z-index: 999;
+    pointer-events: none; /* Inicialmente no interactuable, se activa con JS. */
+  }
+}
+
+/* Media query para pantallas grandes (laptop y desktop) */
+@media (min-width: 1025px) {
+  /* Muestra la barra de navegación de escritorio. */
+  .desktop-navbar {
+    display: flex;
+  }
+
+  /* Oculta la barra de navegación móvil. */
+  .mobile-navbar {
+    display: none;
+  }
+}

@@ -1,0 +1,127 @@
+/**
+ * Estilos CSS para componentes de autenticación (Login y Register).
+ * Define la apariencia general de los formularios de inicio de sesión y registro.
+ */
+
+/* Contenedor principal que centra el formulario en la pantalla. */
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f3f4f6;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Caja del formulario de autenticación. */
+.auth-container {
+  background: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  width: 400px;
+}
+
+/* Estilos para los títulos dentro del contenedor de autenticación. */
+.auth-container h1 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #333;
+}
+
+/* Estilos para la línea horizontal de separación. */
+.auth-container hr {
+  margin: 10px 0 20px;
+  border: none;
+  border-top: 2px solid #e5e7eb;
+}
+
+/* Estilos para las etiquetas de los campos del formulario. */
+.auth-container label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #444;
+}
+
+/* Estilos para los campos de entrada de texto y selectores. */
+.auth-container input,
+.auth-container select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+  transition: 0.2s;
+}
+
+/* Estilos para los campos de entrada y selectores al enfocar. */
+.auth-container input:focus,
+.auth-container select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0px 0px 6px rgba(59, 130, 246, 0.3);
+}
+
+/* Contenedor para los botones de cambio (ej. entre Login y Register). */
+.switch-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+/* Estilos para los botones de cambio. */
+.switch-buttons button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #e5e7eb;
+  transition: 0.3s;
+}
+
+/* Estilos para el botón de cambio activo. */
+.switch-buttons button.active {
+  background: #3b82f6;
+  color: #fff;
+}
+
+/* Estilos para el botón principal de envío del formulario. */
+.auth-container button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background: #3b82f6;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Estilos para el botón principal de envío al pasar el ratón. */
+.auth-container button[type="submit"]:hover {
+  background: #2563eb;
+}
+
+/* Estilos para el enlace debajo del botón de envío. */
+.auth-container a {
+  display: block;
+  text-align: center;
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+/* Estilos para el enlace al pasar el ratón. */
+.auth-container a:hover {
+  text-decoration: underline;
+}

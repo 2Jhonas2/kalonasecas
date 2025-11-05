@@ -1,0 +1,87 @@
+/* ================== App.css (merged & enhanced) ==================
+   - Mantiene variables en :root y tipografías fluidas
+   - Logo + animación con prefers-reduced-motion
+   - Botón .add-card-btn con la paleta global (sin posicionamiento)
+=================================================================== */
+
+
+/* Base ligera (opcional, útil con la paleta global) */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== Logo ===== */
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+/* Animación */
+@keyframes logo-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Solo si el usuario no prefiere menos movimiento */
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+/* Texto auxiliar (Vite/React hint) */
+.read-the-docs {
+  color: #888;
+}
+
+/* ===== Botón “Add Card” (sin posicionamiento) =====
+   * Si necesitas posición fija/flotante, hazlo en AddCard.css
+*/
+.add-card-btn {
+  margin: 1rem auto;
+  display: block;
+  background-color: var(--primary);
+  color: var(--text-tertiary);
+  font-weight: bold;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+.add-card-btn:hover {
+  background-color: var(--secondary);
+  transform: scale(1.05);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.16);
+}
+.add-card-btn:focus-visible {
+  outline: 3px solid #4c9ffe;
+  outline-offset: 2px;
+}
+.add-card-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Reduce motion: desactiva animaciones/transiciones intrusivas */
+@media (prefers-reduced-motion: reduce) {
+  .logo { transition: none; }
+  .add-card-btn { transition: none; }
+  .add-card-btn:hover { transform: none; }
+}

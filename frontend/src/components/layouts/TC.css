@@ -1,0 +1,95 @@
+/* ===== TC.css (merged & improved) =====
+   - Unifica ambos archivos y mantiene las mismas clases públicas.
+   - Mejora accesibilidad: focus states, reduce motion, scrollbars ocultas cross-browser.
+   - Ajusta z-index para convivir con otros modales (p.ej., Login).
+*/
+
+/* Overlay */
+.modalOverlayTerms {
+  font-family: var(--font-family);
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--transparent-black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;                 /* ↑ sobre otros overlays */
+  animation: fadeInOpacity 0.2s ease-in-out;
+  -webkit-tap-highlight-color: transparent;
+  backdrop-filter: blur(1.5px);
+}
+
+/* Contenido */
+.modalContentTerms {
+  background: var(--text-tertiary);
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: min(80vh, 600px);
+  overflow-y: auto;              /* scroll si el contenido se extiende */
+  scrollbar-width: none;         /* Firefox: oculta scrollbar */
+  -ms-overflow-style: none;      /* IE/Edge */
+  box-shadow: 0 12px 30px rgba(0,0,0,.25);
+  animation: modalFade 0.22s ease-out;
+}
+
+/* WebKit: oculta scrollbar */
+.modalContentTerms::-webkit-scrollbar { display: none; }
+
+/* Tipografías */
+.titleTerms {
+  font-size: var(--font-xl);
+  text-align: center;
+}
+.subTitleTerms {
+  font-size: var(--font-gl);
+  margin: 10px 0;
+  text-align: center;
+}
+.textContentTerms { margin: 0 0 10px 0; }
+.listTerms { padding-left: 15px; }
+
+/* Encabezados internos */
+.modalContentTerms h2 { margin-top: 0; }
+
+/* Botones */
+.modalContentTerms button {
+  margin-top: 15px;
+  padding: 8px 12px;
+  border: none;
+  background: var(--primary);
+  color: var(--text-tertiary);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform .15s ease, background .2s ease, box-shadow .2s ease;
+}
+.modalContentTerms button:hover {
+  background: var(--secondary);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.15);
+}
+.modalContentTerms button:focus-visible {
+  outline: 2px solid var(--secondary);
+  outline-offset: 2px;
+}
+
+/* Animaciones */
+@keyframes fadeInOpacity {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes modalFade {
+  from { opacity: 0; transform: translateY(-8px) scale(0.995); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .modalOverlayTerms,
+  .modalContentTerms {
+    animation: none;
+  }
+}

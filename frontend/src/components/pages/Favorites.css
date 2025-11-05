@@ -1,0 +1,113 @@
+/* ===== Favorites.css (merged & enhanced) =====
+   - Responsivo con clamp()
+   - Modificadores: .is-compact / .is-wide
+   - Accesibilidad y reduce motion
+*/
+
+/* Contenedor */
+.favorites-container {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+/* Grid */
+.favorites-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Tarjeta */
+.favorite-card {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: clamp(160px, 42vw, 250px);
+  font-size: clamp(0.8rem, 1.6vw, 1rem);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.favorite-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.favorite-card:focus-visible {
+  outline: 3px solid #4c9ffe;
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+/* Modificadores de tamaño (opcional) */
+.favorite-card.is-compact {
+  width: 160px;
+  font-size: 0.8rem;
+}
+.favorite-card.is-wide {
+  width: 250px;
+  font-size: 1rem;
+}
+
+/* Imagen */
+.favorite-img {
+  width: 100%;
+  height: clamp(100px, 30vw, 180px);
+  object-fit: cover;
+}
+
+/* Contenido */
+.favorite-content {
+  padding: clamp(0.4rem, 1.5vw, 1rem);
+  text-align: center;
+}
+
+.favorite-content h4 {
+  margin: 0.2rem 0;
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  color: #333;
+  font-weight: 600;
+}
+
+.favorite-content p {
+  margin: 0.15rem 0;
+  color: #555;
+  font-size: clamp(0.75rem, 1.4vw, 0.9rem);
+}
+
+/* Botón eliminar */
+.btn-delete-fav {
+  margin-top: 0.3rem;
+  padding: 0.25rem 0.5rem;
+  background-color: #ff4d4d;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.btn-delete-fav:hover {
+  background-color: #e60000;
+  transform: translateY(-1px);
+}
+
+.btn-delete-fav:focus-visible {
+  outline: 2px solid #4c9ffe;
+  outline-offset: 2px;
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .favorite-card,
+  .btn-delete-fav {
+    transition: none;
+  }
+  .favorite-card:hover { transform: none; }
+}

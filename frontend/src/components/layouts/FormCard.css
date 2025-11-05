@@ -1,0 +1,48 @@
+/* Styles from favorites, can be removed if not used here */
+.favorites-page {
+  padding: 2rem;
+  text-align: center;
+}
+
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* Container for the image preview */
+.preview-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  min-height: 150px; /* Reserve space for the image */
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 0.5rem;
+  background-color: #f9f9f9;
+}
+
+.preview-img {
+  max-width: 100%; /* Fill the container width */
+  max-height: 200px; /* Limit the height */
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Unused classes, can be removed or kept for future use */
+.preview-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+}
+
+.preview-video {
+  max-width: 220px;
+  max-height: 160px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
