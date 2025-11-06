@@ -37,7 +37,7 @@ import { ResetPasswordForm } from "./auth/ResetPasswordForm";
 import VerificationSuccess from "./components/pages/VerificationSuccess";
 import VerificationFailure from "./components/pages/VerificationFailure";
 
-import PrivateRoute from "./Components/PrivateRoute";
+import PrivateRoute from "./components/PrivateRoute";
 import { useAuth } from "./context/AuthContext";
 
 function App() {
